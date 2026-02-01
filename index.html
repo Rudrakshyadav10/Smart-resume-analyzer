@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Smart Resume Analyzer</title>
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+<!-- Your CSS -->
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Your entire HTML structure here (from your code) -->
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__blob hero__blob--a"></div>
+  <div class="hero__blob hero__blob--b"></div>
+  <div class="wrap">
+    <div class="badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+      </svg>
+      AI-Powered Analysis
+    </div>
+    <h1 class="hero__h1">Smart Resume <em>Analyzer</em></h1>
+    <p class="hero__sub">Upload your resume and paste a job description. Our engine extracts skills, compares them, and gives you an instant match score with actionable feedback.</p>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <!-- CARD: Upload -->
+  <div class="card">
+    <div class="card__head">
+      <div class="card__ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card__title">Upload Resume</div>
+        <div class="card__sub">PDF only · max 5 MB</div>
+      </div>
+    </div>
+    <div class="card__body">
+      <div class="dz" id="dz">
+        <input type="file" accept=".pdf" id="fileInput" />
+        <div class="dz__ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 16V6"/><path d="M8 10l4-4 4 4"/><rect x="3" y="18" width="18" height="2" rx="1"/>
+          </svg>
+        </div>
+        <div class="dz__label"><strong>Click to upload</strong> or drag &amp; drop</div>
+        <div class="dz__hint">PDF · up to 5 MB</div>
+      </div>
+      <!-- File chip (hidden until file chosen) -->
+      <div class="chip" id="chip">
+        <span class="chip__ico">📄</span>
+        <span class="chip__name" id="chipName">resume.pdf</span>
+        <button class="chip__rm" id="chipRm" title="Remove">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD: Job Description -->
+  <div class="card" style="margin-top:28px">
+    <div class="card__head">
+      <div class="card__ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card__title">Job Description</div>
+        <div class="card__sub">Paste the full job posting text</div>
+      </div>
+    </div>
+    <div class="card__body">
+      <textarea id="jobTA" placeholder="Paste the job description here…&#10;&#10;Example: We are hiring a Senior React Developer with experience in Node.js, TypeScript, MongoDB, and AWS…"></textarea>
+    </div>
+  </div>
+
+  <!-- ANALYSE BUTTON -->
+  <div style="margin-top:32px">
+    <button class="btn btn--disabled" id="analyzeBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" id="btnIcon">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <span id="btnLabel">Analyze Resume</span>
+    </button>
+  </div>
+
+  <!-- RESULTS (hidden initially) -->
+  <div class="results" id="results" style="margin-top:40px">
+    <div class="card">
+      <div class="card__head">
+        <div class="card__ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <div>
+          <div class="card__title">Analysis Results</div>
+          <div class="card__sub" id="resultsSub">— of — required skills detected</div>
+        </div>
+      </div>
+      <div class="card__body">
+
+        <!-- Score Ring -->
+        <div class="ring-wrap">
+          <div class="ring ring--high" id="ringWrap">
+            <svg width="152" height="152" viewBox="0 0 152 152">
+              <circle class="ring__track" cx="76" cy="76" r="60"/>
+              <circle class="ring__arc" id="ringArc" cx="76" cy="76" r="60"/>
+            </svg>
+            <div class="ring__center">
+              <div class="ring__num" id="ringNum">0%</div>
+              <div class="ring__lbl">Match Score</div>
+            </div>
+          </div>
+          <div class="pill pill--high" id="pill">🎯 Strong Match</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Matched Skills -->
+        <div id="matchedSection" style="margin-bottom:20px"></div>
+
+        <!-- Missing Skills -->
+        <div id="missingSection"></div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    Smart Resume Analyzer &nbsp;·&nbsp; Vanilla JS + pdf.js &nbsp;·&nbsp; All processing happens locally — no data leaves your browser.
+  </footer>
+</main>
+
+<!-- pdf.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<!-- Your JavaScript -->
+<script src="script.js"></script>
+</body>
+</html>
