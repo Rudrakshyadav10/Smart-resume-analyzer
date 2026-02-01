@@ -58,7 +58,6 @@ A modern web application that allows users to **upload their resume** and **comp
 ## 📁 Tech Stack
 
 - **Frontend:** HTML, CSS, JavaScript (Vanilla JS)  
-- **PDF Parsing:** [pdf.js](https://mozilla.github.io/pdf.js/)  
 - **Design:** Modern, minimal UI with aesthetic animations  
 - **Hosting:** Can be hosted on GitHub Pages, Vercel, or Netlify  
 
@@ -74,16 +73,6 @@ A modern web application that allows users to **upload their resume** and **comp
    - Ring chart shows **match percentage**  
    - Matched skills list  
    - Missing skills list  
-
----
-
-## 🖥 Screenshots
-
-**Hero Section & Upload Interface**  
-![hero](screenshots/hero.png)
-
-**Analysis Results**  
-![results](screenshots/results.png)
 
 ---
 
